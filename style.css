@@ -1,0 +1,199 @@
+:root{
+  --bg:#fbf7f2;
+  --card:#fff;
+  --accent:#a67c52;
+  --muted:#7a5a40;
+  --text:#3c2f2f;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:24px;
+}
+
+/* header */
+.site-header{
+  background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,244,238,0.9));
+  border-bottom:1px solid rgba(60,47,47,0.06);
+}
+.site-header .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:20px;
+}
+.logo{font-size:1.4rem; margin:0; color:var(--muted)}
+
+/* nav */
+.main-nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:600;
+  padding:6px 10px;
+  border-radius:6px;
+}
+.main-nav a.active, .main-nav a:hover{
+  background:rgba(166,124,82,0.12);
+  color:var(--accent);
+}
+
+/* hero */
+.hero{
+  display:flex;
+  gap:30px;
+  align-items:center;
+  padding:40px 0;
+}
+.hero-content{flex:1}
+.hero h2{font-size:2rem; margin:0 0 12px}
+.hero p{margin:0 0 18px; color:var(--muted)}
+.btn{
+  display:inline-block;
+  background:var(--accent);
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:700;
+}
+.hero-image{
+  flex: none; /* Garante que o hero-image não cresça */
+  width: 380px; /* Mantém a largura original */
+  /* Remove a necessidade de .hero-image img, o carrossel assume os estilos */
+}
+
+/* gallery */
+.gallery-section h2, .events-section h2{margin-top:0}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+  gap:18px;
+  margin-top:18px;
+}
+.card{
+  background:var(--card);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(60,47,47,0.06);
+}
+.card img{width:100%; display:block}
+.card .caption{padding:12px; font-weight:600; color:var(--muted)}
+
+/* events list */
+.events-list{list-style:none; padding:0; margin:16px 0 40px 0}
+.event-item{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  padding:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(251,247,242,0.9));
+  border-radius:10px;
+  margin-bottom:12px;
+  box-shadow:0 6px 18px rgba(60,47,47,0.04);
+}
+.event-item img{width:160px; height:110px; object-fit:cover; border-radius:8px}
+.event-body h3{margin:0 0 6px}
+.event-body time{display:block; color:var(--muted); margin-bottom:8px}
+
+/* footer */
+.site-footer{
+  background:linear-gradient(180deg, rgba(230,210,180,0.8), rgba(230,210,180,0.95));
+  padding:18px 0;
+  margin-top:40px;
+  border-top:1px solid rgba(60,47,47,0.04);
+  text-align:center;
+}
+.site-footer a{color:var(--muted); text-decoration:none}
+@media (max-width:800px){
+  .hero{flex-direction:column}
+  .hero-image{width:100%} /* Ajuste de largura para carrossel em telas menores */
+  .site-header .container{flex-direction:column; align-items:flex-start}
+  .main-nav{margin-top:10px}
+  .event-item{flex-direction:column}
+  .event-item img{width:100%; height:220px}
+}
+
+/* Carrossel Interativo */
+.carousel-container {
+  max-width: 100%; /* Para preencher o hero-image */
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px; /* Mantém o border-radius original */
+  box-shadow: 0 10px 30px rgba(60,47,47,0.08); /* Mantém o box-shadow original */
+}
+
+.carousel-slide {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-slide img {
+  width: 100%;
+  flex-shrink: 0;
+  display: block;
+  height: auto;
+}
+
+/* Indicadores (Dots) */
+.carousel-dots {
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.dot {
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  margin: 0 4px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active, .dot:hover {
+  background-color: var(--accent);
+}
+
+
+/* Efeito de Zoom Hover para a Galeria - NOVO */
+
+.card {
+  /* Garante que o item da grade se comporte bem ao dar zoom */
+  transform-origin: center center;
+  /* Adiciona transição para suavizar o efeito de zoom */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  /* Garante que o card fique por cima dos vizinhos ao dar zoom */
+  position: relative; 
+  z-index: 1;
+}
+
+.card:hover {
+  /* Aplica o zoom na DIV inteira */
+  transform: scale(1.07); /* Zoom sutil de 5% */
+  /* Eleva o box-shadow para destacar ainda mais */
+  box-shadow: 0 10px 30px rgba(60,47,47,0.15); 
+  z-index: 10; /* Garante que fique acima de outros cards */
+}
+
+.card img {
+  /* Remove qualquer transição ou transformação anterior da imagem */
+  transition: none; 
+  transform: none;
+}
